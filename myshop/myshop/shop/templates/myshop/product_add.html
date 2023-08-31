@@ -1,0 +1,16 @@
+{% extends "shop/myshop/templates/base.html" %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for fields in form %}
+            <p>{{field.label_tag}}</p>
+            <hr>
+            {% for error in field.errors %}
+                {{error}}
+            {% endfor %}
+            <p>{{field}}</p>
+        {% endfor %}
+        <button type="submit">Добавить товар</button>
+    </form>
+{% endblock %}

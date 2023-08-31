@@ -1,0 +1,12 @@
+{% extends "shop/myshop/templates/base.html" %}
+{% block content %}
+<ul>
+    {% for cats in categories %}
+        <li>
+            <a href = "{%url 'categories:category_one' pk=cats.pk %}">{{cats.category_name}}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href = "{%url 'categories:category_create' %}">Создать категорию</a>
+
+{% endblock %}
