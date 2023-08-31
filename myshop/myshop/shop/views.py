@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 from .models import Category, Product
 from django.contrib import messages
@@ -9,7 +9,9 @@ from .forms import LoginForm, RegisterUserForm, AddProductForm, RegisterUserForm
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from .utils import DataMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from cart.forms import CartAddProductForm
 # Create your views here.
 
 class MainPage(DataMixin, ListView):
@@ -122,3 +124,17 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+
+class PermissionMixin:
+    def test_func(self):
+        return self.request.user.is_superuser
+    def handle_no_permission(self):
+        return HttpResponseRedirect(reverse('shop:index'))
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug, available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'myshop/single-product.html', {'product': product,
+                                                          'cart_product_form': cart_product_form})

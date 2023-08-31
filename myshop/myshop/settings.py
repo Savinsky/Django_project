@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'myshop.shop.apps.ShopConfig',
+    'users.apps.UsersConfig',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -116,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/myshop/'#'C:/Users/Admin/PycharmProjects/myshop/myshop/myshop/shop/static/myshop/'
+STATIC_URL = 'static/myshop/'
 #STATIC_ROOT = (BASE_DIR / "static/myshop", )
 STATICFILES_DIRS = ["myshop/shop/static/myshop"]#os.path.join(BASE_DIR, "myshop/shop/static/myshop")
     #"myshop/myshop/myshop/myshop/shop/static/myshop/"
@@ -125,3 +129,16 @@ STATICFILES_DIRS = ["myshop/shop/static/myshop"]#os.path.join(BASE_DIR, "myshop/
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Переопределение класса пользователя
+AUTH_USER_MODEL = 'users.ShopUser'
+
+#Редиректы при регистрации/выходе
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login'
+
+CART_SESSION_ID = 'cart'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
