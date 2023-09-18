@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'myshop.shop.apps.ShopConfig',
+    'myshop.shop',
     'users.apps.UsersConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
@@ -122,9 +122,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/myshop/'
 #STATIC_ROOT = (BASE_DIR / "static/myshop", )
-STATICFILES_DIRS = ["myshop/shop/static/myshop"]#os.path.join(BASE_DIR, "myshop/shop/static/myshop")
-    #"myshop/myshop/myshop/myshop/shop/static/myshop/"
-
+STATICFILES_DIRS = ["myshop/shop/static/myshop"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

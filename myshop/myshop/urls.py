@@ -20,10 +20,10 @@ from .shop import views
 
 app_name = 'shop'
 urlpatterns = [
-    path('', views.MainPage.as_view()),
+    path('shop/', include('myshop.shop.urls', namespace='shop')), #views.MainPage.as_view()),
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls', namespace='users')),
     path('orders/', include('orders.urls', namespace='orders')),
 
 ]

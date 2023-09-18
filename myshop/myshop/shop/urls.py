@@ -28,14 +28,9 @@ urlpatterns = [
     path('login/', views.LoginUser.as_view(), name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.RegisterUser.as_view(), name='register'),
-    path('addproduct/', views.AddProduct.as_view(), name='add_product'),
+    path('addproduct/', views.AddProduct.as_view(), name='addproduct'),
     path('category/<slug:cat_slug>/', views.ProductCategory.as_view(), name='category'),
-    #path('cart/', views),
-
     path('category-one/<int:pk>', views.CategoryDetailView.as_view(), name='category_one'),
-    #path('category-update/<int:pk>', views.CategoryUpdateView.as_view(), name='category_update'),
-    #path('category-delete/<int:pk>', views.CategoryDeleteView.as_view(), name='category_delete'),
-    #path('category-create/', views.CategoryCreateView.as_view(), name='category_create'),
 ]
 
 if settings.DEBUG:
