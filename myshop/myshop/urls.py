@@ -17,14 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .shop import views
+from django.conf import settings
 
 app_name = 'shop'
 urlpatterns = [
-    path('shop/', include('myshop.shop.urls', namespace='shop')), #views.MainPage.as_view()),
+    path('', include('myshop.shop.urls', namespace='shop')), #views.MainPage.as_view()),
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
     path('users/', include('users.urls', namespace='users')),
     path('orders/', include('orders.urls', namespace='orders')),
 
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__', include(debug_toolbar.urls)),
+    ] + urlpatterns
 

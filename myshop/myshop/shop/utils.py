@@ -1,10 +1,4 @@
 from .models import Category
-#t = 'title'
-#menu = [ {t:'', 'url_name':''},
-#         {t:'', 'url_name':''},
-#         {t:'', 'url_name':''},
-#         {t:'', 'url_name':''},
-#]
 
 class DataMixin:
     def get_user_context(self, **kwargs):

@@ -2,7 +2,20 @@ from django.db import models
 from django.urls import reverse
 # Create your models here.
 
-class Category(models.Model):
+class ActiveManager(models.Manager):
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_active=True)
+
+class IsActiveMixin(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveManager()
+    is_active = models.BooleanField(default= False)
+
+    class Meta:
+        abstract = True
+
+class Category(IsActiveMixin, models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name='Категория')
     slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name='URL')
 
@@ -15,8 +28,8 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
 
-class Product(models.Model):
-    cat = models.ForeignKey('Category',on_delete=models.PROTECT)
+class Product(IsActiveMixin, models.Model):
+    #cat = models.ForeignKey('Category',on_delete=models.PROTECT)
     title = models.SlugField(max_length=200)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -27,6 +40,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    product_cat = models.ManyToManyField(Category)
 
     class Meta:
         ordering = ('name',)

@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.RegisterUser.as_view(), name='register'),
     path('addproduct/', views.AddProduct.as_view(), name='addproduct'),
+    path('category/<slug:cat_slug>/', views.CategoryUpdateView.as_view(), name='category_list'),
     path('category/<slug:cat_slug>/', views.ProductCategory.as_view(), name='category'),
     path('category-one/<int:pk>', views.CategoryDetailView.as_view(), name='category_one'),
 ]
