@@ -3,7 +3,6 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 from django.utils.functional import cached_property
-
 from .models import Category, Product
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout

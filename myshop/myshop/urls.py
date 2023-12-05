@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
 from .shop import views
 from django.conf import settings
+
+from .shop.api_views import ProductViewSet, CategoryViewSet
+
+router = routers.DefaultRouter()
+router.register('product', ProductViewSet)
+router.register('category', CategoryViewSet)
 
 app_name = 'shop'
 urlpatterns = [
@@ -26,6 +34,7 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('users/', include('users.urls', namespace='users')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('api/v0/', include(router.urls))
 
 ]
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4fyqlbubi(9w-z-2lqlg-5i2=k&^#fug65gio6i#0v_z463z!9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']#'95.163.231.74']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+	#'default': {
+    #'NAME': 'django_db',
+    #'ENGINE': 'django.db.backends.postgresql',
+    #'USER': 'django',
+    #'PASSWORD': '123456',
+    #'HOST': 'localhost'
+    #}
 }
 
 
@@ -122,9 +130,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/myshop/'
-#STATIC_ROOT = (BASE_DIR / "static/myshop", )
-STATICFILES_DIRS = ["myshop/shop/static/myshop"]
+STATIC_URL = 'myshop/shop/static/myshop/'#'static/myshop/'
+STATIC_ROOT = os.path.join(BASE_DIR, "shop/static/myshop") #"/var/www/myshop/myshop/shop/static/"
+STATICFILES_DIRS = ["myshop/shop/static/myshop"] #["/var/www/myshop/myshop/shop/static/myshop"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -147,3 +155,10 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
